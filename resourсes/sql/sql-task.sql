@@ -95,4 +95,7 @@ VALUES (1, 3, 45),
        (4, 1, 14),
        (5, 2, 74);
 
+-- удалить таблицы
+
+DROP TABLE Orders, Customers
 
