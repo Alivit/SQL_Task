@@ -75,6 +75,24 @@ CREATE TABLE IF NOT EXISTS Customers (
 CREATE TABLE IF NOT EXISTS Orders (
         id bigserial PRIMARY KEY,
         customerId int NOT NULL,
-        quantity numeric(10,5) NOT NULL,
+        quantity numeric(10,2) NOT NULL,
         FOREIGN KEY (customerId) references bookings.customers(id)
 );
+
+-- Написать 5 insert в эти таблицы
+
+INSERT INTO Customers
+VALUES (1, 'Freddy', 'Adamson', 'lowagrauyuffoi-5790@yopmail.com', '+375295432112'),
+       (2, 'Jackie', 'Evans', 'hoixoitemeubri-3387@yopmail.com', '+375299645453'),
+       (3, 'Nicky', 'Johnson', 'tusseugribuveu-4617@yopmail.com', '+375292853653'),
+       (4, 'Bertie', 'Davies', 'gribrisiricreu-2054@yopmail.com', '+375297404832'),
+       (5, 'Danny', 'Wilson', 'pulofaupibrou-7049@yopmail.com', '+375291957365');
+
+INSERT INTO Orders
+VALUES (1, 3, 45),
+       (2, 4, 86),
+       (3, 4, 21),
+       (4, 1, 14),
+       (5, 2, 74);
+
+
