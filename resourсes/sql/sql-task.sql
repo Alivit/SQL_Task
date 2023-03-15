@@ -52,10 +52,18 @@ SELECT *
   FROM ticket_flights
 ORDER BY amount
  LIMIT 1;
-UNION
+ UNION
 SELECT *
   FROM ticket_flights
 ORDER BY amount DESC
  LIMIT 1;
 
+-- Написать DDL таблицы Customers , должны быть поля id , firstName, LastName, email , phone. Добавить ограничения на поля ( constraints) .
 
+CREATE TABLE IF NOT EXISTS Customers (
+        id bigserial PRIMARY KEY,
+        firstName text NOT NULL,
+        lastName text NOT NULL,
+        email varchar(50) NOT NULL UNIQUE check ( email LIKE '%@%'),
+        phone varchar(20) NOT NULL UNIQUE check ( phone LIKE '+%')
+);
