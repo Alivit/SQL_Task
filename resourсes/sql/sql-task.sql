@@ -3,7 +3,7 @@
 
 SELECT model ->>'ru' AS model_ru, fare_conditions, count(*)
   FROM aircrafts_data AS ad
-       INNER JOIN seats AS s
+       JOIN seats AS s
        ON ad.aircraft_code = s.aircraft_code
 GROUP BY model, fare_conditions;
 
@@ -11,7 +11,7 @@ GROUP BY model, fare_conditions;
 
 SELECT model ->>'ru' AS model_ru, count(*) AS number_of_seats
   FROM aircrafts_data AS ad
-       INNER JOIN seats AS s
+       JOIN seats AS s
        ON ad.aircraft_code = s.aircraft_code
 GROUP BY model
 ORDER BY number_of_seats DESC
@@ -22,7 +22,7 @@ LIMIT 3;
 
 SELECT ad.aircraft_code, model ->>'ru' AS model_ru, seat_no
   FROM aircrafts_data AS ad
-       INNER JOIN seats AS s
+       JOIN seats AS s
        ON ad.aircraft_code = s.aircraft_code
 WHERE model->>'ru' LIKE '%Аэробус A321-200%'
   AND fare_conditions NOT LIKE '%Economy%'
@@ -97,5 +97,19 @@ VALUES (1, 3, 45),
 
 -- удалить таблицы
 
-DROP TABLE Orders, Customers
+DROP TABLE Orders, Customers;
+
+-- Написать свой кастомный запрос ( rus + sql)
+-- Компании нужно узнать общую сумму выручки за продажу билетов пассажирам,
+-- самолёты которых были отправлены с Москвы между 2017-07-16 08:00:00.000000 и 2017-07-16 14:00:00.000000
+-- класс обслуживания должен быть 'Business','Comfort'
+
+SELECT sum(amount) AS total_amount
+  FROM flights_v AS fv
+       JOIN ticket_flights tf
+       ON fv.flight_id = tf.flight_id
+WHERE departure_city LIKE '%Москва%'
+  AND scheduled_departure_local BETWEEN '2017-07-16 08:00:00.000000' AND '2017-07-16 14:00:00.000000'
+  AND status LIKE '%Arrived%'
+  AND fare_conditions IN ('Business','Comfort');
 
