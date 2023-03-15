@@ -58,7 +58,8 @@ SELECT *
 ORDER BY amount DESC
  LIMIT 1;
 
--- Написать DDL таблицы Customers , должны быть поля id , firstName, LastName, email , phone. Добавить ограничения на поля ( constraints) .
+-- Написать DDL таблицы Customers , должны быть поля id , firstName, LastName, email , phone.
+-- Добавить ограничения на поля ( constraints).
 
 CREATE TABLE IF NOT EXISTS Customers (
         id bigserial PRIMARY KEY,
@@ -66,4 +67,14 @@ CREATE TABLE IF NOT EXISTS Customers (
         lastName text NOT NULL,
         email varchar(50) NOT NULL UNIQUE check ( email LIKE '%@%'),
         phone varchar(20) NOT NULL UNIQUE check ( phone LIKE '+%')
+);
+
+-- Написать DDL таблицы Orders , должен быть id, customerId, quantity.
+-- Должен быть внешний ключ на таблицу customers + ограничения
+
+CREATE TABLE IF NOT EXISTS Orders (
+        id bigserial PRIMARY KEY,
+        customerId int NOT NULL,
+        quantity numeric(10,5) NOT NULL,
+        FOREIGN KEY (customerId) references bookings.customers(id)
 );
